@@ -13,7 +13,10 @@ defmodule Runnable do
   Enables the application to run via `mix run` commands
   """
   def start(_type, _args) do
-    Greeting.greet("Person")
-    {:ok, self()}
+    IO.puts "Starting application..."
+    children = [
+      Greeting
+    ]
+    Supervisor.start_link(children, strategy: :one_for_one)
   end
 end
