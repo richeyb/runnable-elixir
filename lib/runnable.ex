@@ -7,6 +7,8 @@ defmodule Runnable do
   use Application
   alias Runnable.Greeting
 
+  require Logger
+
   @doc """
   Start.
 
@@ -21,7 +23,9 @@ defmodule Runnable do
     Supervisor.start_link(children, strategy: :one_for_one)
   end
 
-  def log do
-    IO.puts "Starting Application..."
+  defp log do
+    Logger.metadata(request_id: "ABCDEF")
+    Logger.debug "Starting Application..."
+    Logger.info "I should get output twice"
   end
 end
